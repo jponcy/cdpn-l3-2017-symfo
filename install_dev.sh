@@ -7,3 +7,7 @@ HTTPDUSER=`ps axo user,comm | grep -E '[a]pache|[h]ttpd|[_]www|[w]ww-data|[n]gin
 sudo setfacl -R -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX app/cache app/logs
 sudo setfacl -dR -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX app/cache app/logs
 
+# Create DB.
+php app/console doctrine:database:drop --force -q
+php app/console doctrine:database:create
+php app/console doctrine:schema:update --force
