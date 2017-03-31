@@ -86,6 +86,10 @@ class AnimalController extends Controller
 
         $formBuilder->add('submit', 'submit');
 
+        if ($entity->getId() === null) {
+            $formBuilder->add('submitAndAddNew', 'submit');
+        }
+
         $form = $formBuilder->getForm();
 
         if ($request->getMethod() === 'POST') {
@@ -98,7 +102,17 @@ class AnimalController extends Controller
                 $manager->persist($entity);
                 $manager->flush();
 
-                return $this->redirectToRoute('app_animal_index');
+                switch ($form->getClickedButton()->getName()) {
+                    default:
+                    case 'submit':
+                        $link = 'app_animal_index';
+                        break;
+                    case 'submitAndAddNew':
+                        $link = 'app_animal_new';
+                        break;
+                }
+
+                return $this->redirectToRoute($link);
             }
         }
 

@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Species;
 
 /**
- *
  * @Route("/species")
  */
 class SpeciesController extends Controller
@@ -16,13 +15,17 @@ class SpeciesController extends Controller
 
     /**
      * @Route("/")
-     * @Method ("GET")
+     *
+     * @method ("GET")
      */
     public function indexAction()
     {
-        return $this->render('AppBundle:Species:index.html.twig', [
-            'entities' => $this->getDoctrine()->getRepository('AppBundle:Species')->findAll()
-        ]);
+        return $this->render('AppBundle:Species:index.html.twig',
+                [
+                    'entities' => $this->getDoctrine()
+                        ->getRepository('AppBundle:Species')
+                        ->findAll()
+                ]);
     }
 
     /**
@@ -41,6 +44,19 @@ class SpeciesController extends Controller
         return $this->change($request, 'AppBundle:Species:new.html.twig', new Species());
     }
 
+    /**
+     * @Route("/{id}/delete", requirements={"id":"^\d+"})
+     * @Method("GET")
+     */
+    public function deleteAction(Species $species)
+    {
+        $manager = $this->getDoctrine()->getManager();
+
+        $manager->remove($species);
+        $manager->flush();
+
+        return $this->redirectToRoute('app_species_index');
+    }
 
     /**
      * New or update.
@@ -58,6 +74,7 @@ class SpeciesController extends Controller
         $formBuilder->add('name');
 
         $formBuilder->add('submit', 'submit');
+        $formBuilder->add('submitAndAddNew', 'submit');
 
         $form = $formBuilder->getForm();
 
@@ -71,13 +88,22 @@ class SpeciesController extends Controller
                 $manager->persist($entity);
                 $manager->flush();
 
-                return $this->redirectToRoute('app_species_index');
+                switch ($form->getClickedButton()->getName()) {
+                    default:
+                    case 'submit':
+                        $link = 'app_species_index';
+                        break;
+                    case 'submitAndAddNew':
+                        $link = 'app_species_new';
+                        break;
+                }
+
+                return $this->redirectToRoute($link);
             }
         }
 
-        return $this->render($template,
-                [
-                    'form' => $form->createView()
-                ]);
+        return $this->render($template, [
+            'form' => $form->createView()
+        ]);
     }
 }

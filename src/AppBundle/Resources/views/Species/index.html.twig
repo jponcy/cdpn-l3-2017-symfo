@@ -25,6 +25,7 @@
                     <td>{{ entity.name }}</td>
                     <td>
                         <a class="btn btn-default" href="{{ path('app_species_edit', {id: entity.id}) }}">Edit</a>
+                        <a class="btn btn-danger" href="{{ path('app_species_delete', {id: entity.id}) }}">Delete</a>
                     </td> <!-- Edit animal. -->
                 </tr>
             {% endfor %}
