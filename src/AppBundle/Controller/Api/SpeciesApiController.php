@@ -85,6 +85,118 @@ class SpeciesApiController extends FOSRestController
     }
 
     /**
+     * @Rest\Get("/{id}")
+     *
+     * @ApiDoc(
+     * section="Species",
+     * resource=true,
+     * description="Show a species from database.",
+     * requirements={
+     *     {
+     *         "name": "id",
+     *         "dataType": "integer",
+     *         "requirements": "^\d+$"
+     *     }
+     * },
+     * parameters={
+     * },
+     * statusCodes={
+     *     200="Success.",
+     *     404="Not found."
+     * }
+     * )
+     */
+    public function showAction(Request $request, Species $species)
+    {
+        return $this->handleView($this->view($species));
+    }
+
+    /**
+     * @Rest\Put("/{id}")
+     *
+     * @ApiDoc(
+     * section="Species",
+     * resource=true,
+     * description="Edit a species into database.",
+     * input={"class": "AppBundle\Form\SpeciesType", "name": ""},
+     * requirements={
+     *     {
+     *         "name": "id",
+     *         "dataType": "integer",
+     *         "requirements": "^\d+$"
+     *     }
+     * },
+     * parameters={
+     *     {
+     *         "name"="name",
+     *         "dataType"="string",
+     *         "description"="The name of the species to add."
+     *     }
+     * },
+     * statusCodes={
+     *     200="Success.",
+     *     400="Error, see form errors for details."
+     * }
+     * )
+     */
+    public function editAction(Request $request, Species $species)
+    {
+        $view = null;
+        $form = $this->createForm(SpeciesType::class, $species);
+
+        $form->submit($request->request->all());
+
+        if ($species->getName() == '') {
+            $form->addError(new FormError('Name cannot be empty'));
+        }
+
+        if ($form->isValid()) {
+            $manager = $this->getDoctrine()->getManager();
+
+            $manager->flush();
+
+            $view = $this->view($species);
+        } else {
+            $view = $this->view($form);
+        }
+
+        return $this->handleView($view);
+    }
+
+    /**
+     * @Rest\Delete("/{id}")
+     *
+     * @ApiDoc(
+     * section="Species",
+     * resource=true,
+     * description="Deletes a species from database.",
+     * requirements={
+     *     {
+     *         "name": "id",
+     *         "dataType": "integer",
+     *         "requirements": "^\d+$"
+     *     }
+     * },
+     * parameters={
+     * },
+     * statusCodes={
+     *     204="Success.",
+     *     500="Internal crash."
+     * }
+     * )
+     */
+    public function deleteAction(Species $species)
+    {
+        $manager = $this->getDoctrine()->getManager();
+
+        $manager->remove($species);
+
+        $manager->flush();
+
+        return $this->handleView($this->view(null, Response::HTTP_NO_CONTENT));
+    }
+
+    /**
      * Gets the repository.
      *
      * @return \Doctrine\ORM\EntityRepository

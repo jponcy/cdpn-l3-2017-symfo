@@ -22,6 +22,9 @@ class Species
      * @ORM\GeneratedValue()
      * @ORM\Column(type="bigint", name="id")
      *
+     * @JSON\Expose()
+     * @JSON\SerializedName("dbId")
+     *
      * @var integer
      */
     protected $id;
@@ -30,7 +33,7 @@ class Species
      * @ORM\Column(type="string", name="name")
      *
      * @JSON\Expose()
-     * @JSON\SerializedName("monSuperNomDeChampVachementPlusPratiqueAUtiliser")
+     * @JSON\SerializedName("name")
      *
      * @var string
      */
