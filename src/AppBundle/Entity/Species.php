@@ -3,9 +3,16 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as JSON;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 
 /**
  * @ORM\Entity()
+ *
+ * @UniqueEntity("name")
+ *
+ * @JSON\ExclusionPolicy("ALL")
  */
 class Species
 {
@@ -21,6 +28,9 @@ class Species
 
     /**
      * @ORM\Column(type="string", name="name")
+     *
+     * @JSON\Expose()
+     * @JSON\SerializedName("monSuperNomDeChampVachementPlusPratiqueAUtiliser")
      *
      * @var string
      */

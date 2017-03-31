@@ -1,4 +1,5 @@
 imports:
+    - { resource: "@TactDoryBundle/Resources/config/config_dev.yml" } ## Don't modify this import.
     - { resource: config.yml }
 
 framework:

@@ -15,6 +15,11 @@ class AppKernel extends Kernel
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
+
+            // Rest.
+            new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
+
+            /// Ours.
             new AppBundle\AppBundle(),
         );
 
@@ -24,6 +29,8 @@ class AppKernel extends Kernel
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
         }
+
+        $bundles = \Tact\DoryBundle\Utils\KernelImporter::mergeLocalBundles($bundles, $this->getEnvironment());
 
         return $bundles;
     }

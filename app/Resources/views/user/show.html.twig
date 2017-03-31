@@ -11,7 +11,7 @@
             </tr>
             <tr>
                 <th>Createat</th>
-                <td>{% if user.createAt %}{{ user.createAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if user.createAt %}{{ user.createAt|date('Y-m-d') }}{% endif %}</td>
             </tr>
             <tr>
                 <th>Updateat</th>
@@ -27,11 +27,11 @@
             </tr>
             <tr>
                 <th>Roles</th>
-                <td>{{ user.roles }}</td>
+                <td>{{ user.roles|join(', ') }}</td>
             </tr>
             <tr>
                 <th>Birthdate</th>
-                <td>{% if user.birthdate %}{{ user.birthdate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if user.birthdate %}{{ user.birthdate|date('Y-m-d') }}{% endif %}</td>
             </tr>
         </tbody>
     </table>

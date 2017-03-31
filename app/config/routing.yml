@@ -1,3 +1,14 @@
+# Attention a ces lignes la :
+dory: 
+    resource: "@TactDoryBundle/Resources/config/routing.yml"
+    prefix: /
+# ! attention (il faut celles de nelmio a la place).
+    
 app:
-    resource: "@AppBundle/Controller/"
+    resource: "@AppBundle/Controller/Front"
     type:     annotation
+
+app_api:
+    resource: "@AppBundle/Controller/Api"
+    type:     rest
+    prefix:   /api

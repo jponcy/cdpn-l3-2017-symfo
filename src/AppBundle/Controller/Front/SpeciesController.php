@@ -1,5 +1,5 @@
 <?php
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\Front;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -74,7 +74,10 @@ class SpeciesController extends Controller
         $formBuilder->add('name');
 
         $formBuilder->add('submit', 'submit');
-        $formBuilder->add('submitAndAddNew', 'submit');
+
+        if ($entity->getId() === null) {
+            $formBuilder->add('submitAndAddNew', 'submit');
+        }
 
         $form = $formBuilder->getForm();
 

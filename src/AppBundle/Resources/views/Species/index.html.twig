@@ -7,7 +7,7 @@
 </head>
 <body>
     <div class="container">
-        <a href="{{ path('app_species_new') }}">Ajouter nouveau</a>
+        <a href="{{ path('app_front_species_new') }}">Ajouter nouveau</a>
         <h1>Liste des espèces</h1>
 
         {% if entities|length %}
@@ -24,8 +24,8 @@
                     <td>{{ entity.id }}</td>
                     <td>{{ entity.name }}</td>
                     <td>
-                        <a class="btn btn-default" href="{{ path('app_species_edit', {id: entity.id}) }}">Edit</a><!-- Edit species. -->
-                        <a class="btn btn-danger" href="{{ path('app_species_delete', {id: entity.id}) }}">Delete</a><!-- Delete species. -->
+                        <a class="btn btn-default" href="{{ path('app_front_species_edit', {id: entity.id}) }}">Edit</a><!-- Edit species. -->
+                        <a class="btn btn-danger" href="{{ path('app_front_species_delete', {id: entity.id}) }}">Delete</a><!-- Delete species. -->
                     </td>
                 </tr>
             {% endfor %}
