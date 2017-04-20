@@ -7,7 +7,7 @@
 </head>
 <body>
     <div class="container">
-        <a href="{{ path('app_animal_new') }}">Ajouter nouveau</a>
+        <a href="{{ path('app_front_animal_new') }}">Ajouter nouveau</a>
         <h1>Liste des annimaux</h1>
 
         {% if entities|length %}
@@ -31,8 +31,8 @@
                     <td>{{ entity.weight }}</td>
                     <td>{{ entity.birthdate|date }}</td>
                     <td>
-                        <a class="btn btn-default" href="{{ path('app_animal_edit', {id: entity.id}) }}">Edit</a>
-                        <form action="{{ path('app_animal_delete', {id: entity.id}) }}" method="POST">
+                        <a class="btn btn-default" href="{{ path('app_front_animal_edit', {id: entity.id}) }}">Edit</a>
+                        <form action="{{ path('app_front_animal_delete', {id: entity.id}) }}" method="POST">
                             <input class="btn btn-danger" type="submit" value="delete" text="delete" />
                         </form>
                     </td> <!-- Edit animal. -->

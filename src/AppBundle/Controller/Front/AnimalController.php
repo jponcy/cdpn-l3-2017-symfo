@@ -57,7 +57,7 @@ class AnimalController extends Controller
         $manager->remove($animal);
         $manager->flush();
 
-        return $this->redirectToRoute('app_animal_index');
+        return $this->redirectToRoute('app_front_animal_index');
     }
 
     /**
@@ -105,10 +105,10 @@ class AnimalController extends Controller
                 switch ($form->getClickedButton()->getName()) {
                     default:
                     case 'submit':
-                        $link = 'app_animal_index';
+                        $link = 'app_front_animal_index';
                         break;
                     case 'submitAndAddNew':
-                        $link = 'app_animal_new';
+                        $link = 'app_front_animal_new';
                         break;
                 }
 

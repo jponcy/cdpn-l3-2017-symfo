@@ -55,7 +55,7 @@ class SpeciesController extends Controller
         $manager->remove($species);
         $manager->flush();
 
-        return $this->redirectToRoute('app_species_index');
+        return $this->redirectToRoute('app_front_species_index');
     }
 
     /**
@@ -94,10 +94,10 @@ class SpeciesController extends Controller
                 switch ($form->getClickedButton()->getName()) {
                     default:
                     case 'submit':
-                        $link = 'app_species_index';
+                        $link = 'app_front_species_index';
                         break;
                     case 'submitAndAddNew':
-                        $link = 'app_species_new';
+                        $link = 'app_front_species_new';
                         break;
                 }
 
